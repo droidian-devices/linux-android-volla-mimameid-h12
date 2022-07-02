@@ -131,7 +131,7 @@ static void rtnl_print_btrace(struct timer_list *unused)
 		show_stack(rtnl_instance.task, NULL);
 		pr_info("------------%s end-----------\n", __func__);
 	} else {
-		pr_info("[mtk_net][rtnl_lock]There is no process hold rtnl lock\n");
+		pr_debug("[mtk_net][rtnl_lock]There is no process hold rtnl lock\n");
 	}
 }
 

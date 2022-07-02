@@ -109,7 +109,7 @@ EXPORT_SYMBOL(musb_debug);
 unsigned int musb_debug_limit = 1;
 EXPORT_SYMBOL(musb_debug_limit);
 
-unsigned int musb_uart_debug = 1;
+unsigned int musb_uart_debug = 0;
 EXPORT_SYMBOL(musb_uart_debug);
 
 unsigned int musb_speed = 1;

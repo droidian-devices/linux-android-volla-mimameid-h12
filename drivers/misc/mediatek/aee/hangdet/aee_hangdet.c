@@ -523,7 +523,7 @@ static void kwdt_process_kick(int local_bit, int cpu,
 
 	spin_unlock_bh(&lock);
 
-	pr_info("%s", msg_buf);
+	pr_debug("%s", msg_buf);
 
 	if (dump_timeout) {
 #if IS_ENABLED(CONFIG_MTK_TICK_BROADCAST_DEBUG)
