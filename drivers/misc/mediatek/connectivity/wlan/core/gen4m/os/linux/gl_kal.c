@@ -6619,7 +6619,7 @@ void kalSchedScanStopped(IN struct GLUE_INFO *prGlueInfo,
 	 */
 	if (fgDriverTriggerd) {
 		DBGLOG(SCN, INFO, "start work queue to send event\n");
-		queue_delayed_work(system_power_efficient_wq, &sched_workq, 0);
+		schedule_delayed_work(&sched_workq, 0);
 		DBGLOG(SCN, INFO, "main_thread return from %s\n", __func__);
 	}
 }
@@ -8693,8 +8693,6 @@ static int wlan_fb_notifier_callback(struct notifier_block
 {
 	struct fb_event *evdata = data;
 	int32_t blank = 0;
-	struct net_device *prDev = NULL;
-	uint32_t u4Idx = 0;
 	struct GLUE_INFO *prGlueInfo = (struct GLUE_INFO *)
 				       wlan_fb_notifier_priv_data;
 
@@ -8716,31 +8714,11 @@ static int wlan_fb_notifier_callback(struct notifier_block
 	case FB_BLANK_UNBLANK:
 		kalPerMonEnable(prGlueInfo);
 		wlan_fb_power_down = FALSE;
-
-		prGlueInfo->fgIsInSuspendMode = FALSE;
-		wlanSetSuspendMode(prGlueInfo, FALSE);
-		p2pSetSuspendMode(prGlueInfo, FALSE);
-
 		break;
 	case FB_BLANK_POWERDOWN:
 		wlan_fb_power_down = TRUE;
 		if (!wlan_perf_monitor_force_enable)
 			kalPerMonDisable(prGlueInfo);
-
-		for (u4Idx = 0; u4Idx < KAL_AIS_NUM; u4Idx++) {
-			prDev = wlanGetNetDev(prGlueInfo, u4Idx);
-			if (!prDev)
-				continue;
-
-			// Reproduce https://github.com/mer-hybris/sailfish-connman-plugin-suspend/commit/f832b495227629aea6251d68e5bf0aa1b1f4f51e
-			mtk_cfg80211_set_power_mgmt(priv_to_wiphy(prGlueInfo), prDev, 0, -1);
-			mtk_cfg80211_set_power_mgmt(priv_to_wiphy(prGlueInfo), prDev, 1, -1);
-		}
-
-		prGlueInfo->fgIsInSuspendMode = TRUE;
-		wlanSetSuspendMode(prGlueInfo, TRUE);
-		p2pSetSuspendMode(prGlueInfo, TRUE);
-
 		break;
 	default:
 		break;
