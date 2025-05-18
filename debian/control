@@ -77,6 +77,6 @@ Description: Linux kernel for Volla Phone 22 (Halium 12) - Android Boot Image  (
 
 Package: linux-headers-volla-mimameid-h12
 Architecture: arm64
-Depends: linux-headers-4.19.191-volla-mimameid (= ${binary:Version})
+Depends: linux-headers-4.19.191-volla-mimameid-h12 (= ${binary:Version})
 Description: Linux kernel for Volla Phone 22 (Halium 12) - Headers (latest)
  This package depends to the latest kernel headers available for the Volla Phone 22.
