@@ -147,7 +147,7 @@ FLASH_INFO_MODEL = Volla Phone 22
 FLASH_INFO_CPU = MT6769V/CZ
 
 # Space-separated list of supported device ids as reported by fastboot
-FLASH_INFO_DEVICE_IDS = k69v1_64
+FLASH_INFO_DEVICE_IDS = k69v1_64_k419
 
 ########################################################################
 # Kernel build settings
